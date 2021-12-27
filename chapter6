@@ -1,0 +1,36 @@
+#2
+a = int(input())
+b = []
+for i in range(a):
+    c = int(input())
+    b.append(c)
+b.sort(reverse=True)
+for i in b:
+    print(i, end=' ')
+
+
+#3
+a = int(input())
+b = []
+for i in range(a):
+    c = input().split()
+    b.append(c)
+
+b.sort(key=lambda b:b[1])   # sort의 기준을 b[1] 오름순으로 함
+for i in b:
+    print(i[0], end=' ')
+    
+
+#4
+a, b = map(int, input().split())
+c = list(map(int, input().split()))
+d = list(map(int, input().split()))
+c.sort()
+d.sort(reverse = True)
+for i in range(b):
+    if c[i] < d[i]:
+        c[i], d[i] = d[i], c[i]
+    else:
+        break
+
+print(sum(c))
