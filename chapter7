@@ -1,0 +1,46 @@
+#2
+def search(array, target, start, end):
+    if start > end:
+        return False
+    mid = (start + end) // 2
+    if array[mid] == target:
+        return True
+    elif array[mid] > target:
+        return search(array, target, start, mid - 1)
+    else:
+        return search(array, target, mid + 1, end)
+
+n = int(input())
+array = list(map(int, input().split()))
+m = int(input())
+array2 = list(map(int, input().split()))
+array.sort()
+
+for i in array2:
+    result = search(array, i, 0, n - 1)
+    if result == False:
+        print('no', end=' ')
+    else:
+        print('yes', end=' ')
+        
+        
+#3, parametric search 는 재귀보다 반복문이 간결
+m, n = map(int, input().split())
+array = list(map(int, input().split()))
+
+start = 0
+end = max(array)
+
+while start <= end:
+    result = 0
+    mid = (start + end) // 2
+    for i in array:
+        if i > mid:
+            result += i - mid
+    if result == n:
+        print(mid)
+        break
+    elif result < n:
+        end = mid - 1
+    else:
+        start = mid + 1
