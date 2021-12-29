@@ -1,0 +1,123 @@
+#CodeUp_2655
+a, b = map(int, input().split())
+c = -b/a
+print(f'{c:.4f}')
+
+
+
+#CodeUp_2633
+#sys.stdin.readline().rstrip()
+#input = sys.stdin.readline
+
+n, k = map(int, input().split())
+array = list(map(int, input().split()))
+start = 0
+end = n - 1
+
+while start <= end:
+    mid = (start + end) // 2
+    if array[0] >= k:
+        print('1')
+        break
+    elif array[n - 1] < k:
+        print(n+1)
+        break
+    elif array[mid] >= k and array[mid-1] < k:
+        print(mid + 1)
+        break
+    elif array[mid] > k:
+        end = mid - 1
+    else:
+        start = mid + 1
+        
+        
+        
+#CodeUp_4766
+
+n = int(input())
+array = list(map(int, input().split()))
+m = int(input())
+start = 0
+end = max(array)
+a = sum(array)
+result = 0
+
+while start <= end:
+    if a <= m:
+        result = end
+        break
+    mid = (start + end) // 2
+    sum = 0
+    for i in array:
+        if i > mid:
+            sum += mid
+        else:
+            sum += i
+    if sum <= m:
+        result = mid
+        start = mid + 1
+    else:
+        end = mid - 1
+
+print(result)
+
+
+
+#CodeUp_2629
+
+N, P = map(int, input().split())
+array = []
+for _ in range(N):
+    x, y, p = map(int, input().split())
+    z = (x**2 + y**2)**(1/2)
+    list = [z, p]
+    array.append(list)
+array.sort(key=lambda array:array[0])
+start = 0
+end = N
+radius = 0
+sum = P
+for i in range(N):
+    sum += array[i][1]
+
+while start <= end:
+    people = P
+    mid = (start + end) // 2
+    for i in range(mid):
+        people += array[i][1]
+    if people < 1000000:
+        start = mid + 1
+    else:
+        radius = array[mid-1][0]
+        end = mid - 1
+
+if sum < 1000000:
+    print('-1')
+else:
+    print(f'{radius:.3f}')
+    
+    
+
+#CodeUp_3002
+
+N = int(input())
+array = list(map(int, input().split()))
+M = int(input())
+array2 = list(map(int, input().split()))
+
+def search(target, start, end):
+    if start > end:
+        return -1
+    mid = (start + end) // 2
+    if array[mid] == target:
+        return mid + 1
+    elif array[mid] > target:
+        return search(target, start, mid - 1)
+    else:
+        return search(target, mid + 1, end)
+
+for i in array2:
+    print(search(i, 0, N), end = ' ')
+    
+    
+    
