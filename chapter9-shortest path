@@ -1,0 +1,46 @@
+#dijkstra algorithm
+import sys
+input = sys.stdin.readline
+INF = 1e9
+
+n, m = map(int, input().split())
+start = int(input())
+
+graph = [[] for i in range(n+1)]   #0에서 n까지 n+1개
+visited = [False] * (n+1)
+distance = [INF] * (n+1)
+
+for i in range(m):
+    a, b, c = map(int, input().split())
+    graph[a].append([b, c])
+
+def smallest():   #왜 함수옆에 아무것도 안써도 될까?
+    min_value = INF
+    index = 0
+    for i in range(n+1):
+        if distance[i] < min_value and not visited[i]:
+            #visited[i]는 방문안했을때 False이므로 not False = True
+            min_value = distance[i]
+            index = i
+    return index
+
+def short(start):
+    distance[start] = 0
+    visited[start] = True
+    for i in graph[start]:
+        distance[i[0]] = i[1]
+    for _ in range(n-1):   #start빼고 n-1번 반복만 하면 된다
+        now = smallest()
+        visited[now] = True
+        for i in graph[now]:
+            cost = distance[now] + i[1]
+            if cost < distance[i[0]]:   #i=[b, c]
+                distance[i[0]] = cost
+
+short(start)
+
+for i in range(1, n+1):
+    print(distance[i])
+    
+    
+    
